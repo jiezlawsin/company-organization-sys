@@ -1,0 +1,24 @@
+<div class="companies-container h-full">
+  <div class="flex justify-content-between w-full">
+    <div class="text-2xl leading-8 text-color font-medium">Companies</div>
+    <p-button (click)="openDialog()" icon="pi pi-plus text-green-500" label="New Company" variant="outlined"
+      severity="secondary"></p-button>
+  </div>
+  <div class="grid mt-2">
+    <div *ngFor="let company of companies" class="col-12 sm:col-6 md:col-4 lg:col-3">
+      <p-card (click)="goToEmployees(company.id)" [style]="{cursor: 'pointer'}">
+        <div class="flex align-items-center justify-content-between">
+          <div class="flex align-items-center" (click)="goToEmployees(company.id)">
+            <p-avatar [label]="getInitial(company)" styleClass="mr-2" size="large" shape="circle" />
+            <span class="company-name font-bold">{{ company.name }}</span>
+          </div>
+          <p-button (click)="goToEmployees(company.id); $event.stopPropagation()" icon="pi pi-users text-blue-500"
+            [rounded]="true" severity="secondary" [style]="{'margin-left':'auto'}"></p-button>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>
+<app-company-form-dialog [(visible)]="showDialog" [company]="newCompany" [isEditMode]="isEditMode"
+  [error]="companyFormError" [loading]="formLoading" (save)="onSaveCompany($event)">
+</app-company-form-dialog>

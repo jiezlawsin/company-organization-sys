@@ -1,0 +1,28 @@
+<div class="text-center flex justify-content-center align-items-center h-full">
+  <p-card [style]="{width: '360px'}" class="w-full flex justify-content-center">
+    <h2>Login</h2>
+    <div class="p-fluid">
+      <div class="field text-left">
+        <label for="email" class="block">Email</label>
+        <input id="email" class="w-full" type="text" pInputText [(ngModel)]="email" placeholder="Enter your email" />
+      </div>
+      <div class="field text-left">
+        <label for="password" class="block">Password</label>
+        <input id="password" class="w-full" type="password" pInputText [(ngModel)]="password"
+          placeholder="Enter your password" />
+      </div>
+      <div class="field mt-5">
+        <button pButton type="button" [label]="loading ? 'Logging in...' : 'Login'" class="w-full" (click)="login()"
+          [disabled]="loading">
+        </button>
+      </div>
+      <div *ngIf="loading" class="flex justify-content-center mt-3">
+        <p-progressSpinner strokeWidth="3" fill="transparent" animationDuration=".5s"
+          [style]="{ width: '35px', height: '35px' }"></p-progressSpinner>
+      </div>
+      <div *ngIf="errorMessage" class="text-red-500 text-sm mt-2">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </p-card>
+</div>

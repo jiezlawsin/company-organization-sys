@@ -1,0 +1,15 @@
+<div class="organization-chart-container">
+  <p-organizationChart [value]="data" [collapsible]="true">
+    <ng-template let-node pTemplate="person">
+      <div class="org-chart-employee-card">
+        <p-avatar [label]="node.data.avatar" styleClass="mr-2 text-sm" shape="circle" />
+        <div class="text-sm mt-2">{{ node.data.name }}</div>
+        <div class="font-light mt-1" [ngStyle]="{'font-size': '.7rem'}">{{ node.data.position }}</div>
+      </div>
+    </ng-template>
+  </p-organizationChart>
+
+  <div *ngIf="data.length === 0" class="no-data-message">
+    <p>No organizational structure available</p>
+  </div>
+</div>

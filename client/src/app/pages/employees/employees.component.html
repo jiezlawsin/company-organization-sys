@@ -1,0 +1,56 @@
+<div class="mb-3">
+  <p-button label="Companies" size="small" variant="outlined" severity="info" [routerLink]="['/companies']" />
+</div>
+<div class="companies-container h-full">
+  <div class="flex justify-content-between w-full mb-4">
+    <div class="flex align-items-center">
+      <div class="text-2xl leading-8 text-color font-medium mr-3">
+        {{ getCompanyName() }}
+      </div>
+      <div class="flex gap-2">
+        <p-button icon="pi pi-pencil" [rounded]="true" size="small" variant="outlined" severity="secondary"
+          [style]="{ width: '32px', height: '32px' }" (click)="openCompanyDialog()" pTooltip="Edit Company"
+          tooltipPosition="top">
+        </p-button>
+        <p-button icon="pi pi-trash" [rounded]="true" size="small" variant="outlined" severity="danger"
+          [style]="{ width: '32px', height: '32px' }" (click)="onDeleteCompany($event)" pTooltip="Delete Company"
+          tooltipPosition="top">
+        </p-button>
+      </div>
+    </div>
+    <p-button (click)="openEmployeeDialog()" icon="pi pi-user text-green-500" label="Add Employee" variant="outlined"
+      severity="secondary"></p-button>
+  </div>
+
+
+  <p-tabs value="0">
+    <p-tablist>
+      <p-tab value="0">Employee List</p-tab>
+      <p-tab value="1">Organization</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+      <p-tabpanel value="0">
+        <app-employees-table [employees]="employees" (edit)="onEditEmployee($event)"
+          (delete)="onDeleteEmployee($event)">
+        </app-employees-table>
+      </p-tabpanel>
+      <p-tabpanel value="1">
+        <div class="overflow-auto">
+          <app-company-organization-chart [employees]="employees"></app-company-organization-chart>
+        </div>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
+
+
+</div>
+
+<app-employee-form-dialog [(visible)]="showEmployeeDialog" [employee]="newEmployee" [employees]="employees"
+  [isEditMode]="isEditMode" [error]="employeeFormError" [loading]="formLoading" (save)="onSaveEmployee($event)">
+</app-employee-form-dialog>
+
+<app-company-form-dialog *ngIf="company" [(visible)]="showCompanyDialog" [company]="updateCompany"
+  [isEditMode]="isEditMode" [error]="companyFormError" [loading]="formLoading" (save)="onSaveCompany($event)">
+</app-company-form-dialog>
+
+<p-confirmdialog />

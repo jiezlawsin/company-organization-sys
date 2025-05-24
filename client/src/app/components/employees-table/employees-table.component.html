@@ -1,0 +1,47 @@
+<p-table [value]="employees" dataKey="id" responsiveLayout="scroll">
+  <ng-template #header>
+    <tr class="text-sm">
+      <th>Name</th>
+      <th>Position</th>
+      <th>Address</th>
+      <th>Reports To</th>
+      <th style="width: 120px;">Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-employee>
+    <tr class="text-sm">
+      <td>
+        <div class="flex align-items-center">
+          <p-avatar [label]="getInitial(employee)" styleClass="mr-2 text-sm" shape="circle" />
+          <span>{{ employee.firstName }} {{ employee.lastName}}</span>
+        </div>
+      </td>
+      <td>{{ employee.position }}</td>
+      <td>
+        {{ employee.address.streetNumber }}
+        {{ employee.address.addressLine1 }},
+        <ng-container *ngIf="employee.address.addressLine2">
+          {{ employee.address.addressLine2 }},
+        </ng-container>
+        {{ employee.address.city }},
+        {{ employee.address.country }}
+      </td>
+      <td class="text-center">
+        <p-avatar *ngIf="employee.reportsTo" [label]="getInitial(getReportsToEmployee(employee.reportsTo))"
+          styleClass="mr-2 text-sm" shape="circle" />
+      </td>
+      <td>
+        <button pButton icon="pi pi-pencil" class="p-button-text p-button-sm mr-2"
+          (click)="edit.emit(employee)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-text p-button-sm p-button-danger"
+          (click)="onDeleteEmployee($event, employee)"></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template #emptymessage>
+    <tr>
+      <td colspan="6" class="text-center text-gray-500">No employees found</td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmdialog />

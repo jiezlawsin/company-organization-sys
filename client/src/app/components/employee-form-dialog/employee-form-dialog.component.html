@@ -1,0 +1,65 @@
+<p-dialog [header]="isEditMode ? 'Update Employee' : 'New Employee'" [modal]="true" [(visible)]="visible"
+  [closable]="true" [dismissableMask]="true" [style]="{ width: '500px' }" (onHide)="onHide()">
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+    <div class="p-fluid">
+      <div class="field">
+        <label for="firstName" class="block">First Name</label>
+        <input id="firstName" type="text" pInputText [(ngModel)]="employee.firstName" name="firstname" class="w-full"
+          required />
+      </div>
+      <div class="field">
+        <label for="lastName" class="block">Last Name</label>
+        <input id="lastName" type="text" pInputText [(ngModel)]="employee.lastName" name="lastname" class="w-full"
+          required />
+      </div>
+      <div class="field">
+        <label for="position" class="block">Position</label>
+        <input id="position" type="text" pInputText [(ngModel)]="employee.position" name="position" class="w-full"
+          required />
+      </div>
+      <div class="field">
+        <label for="streetNumber" class="block">Street Number</label>
+        <input id="streetNumber" type="text" pInputText [(ngModel)]="employee.address.streetNumber" name="streetNumber"
+          class="w-full" required />
+      </div>
+      <div class="field">
+        <label for="addressLine1" class="block">Address Line 1</label>
+        <input id="addressLine1" type="text" pInputText [(ngModel)]="employee.address.addressLine1" name="addressLine1"
+          class="w-full" required />
+      </div>
+      <div class="field">
+        <label for="addressLine2" class="block">Address Line 2</label>
+        <input id="addressLine2" type="text" pInputText [(ngModel)]="employee.address.addressLine2" name="addressLine2"
+          class="w-full" />
+      </div>
+      <div class="field">
+        <label for="city" class="block">City</label>
+        <input id="city" type="text" pInputText [(ngModel)]="employee.address.city" name="city" class="w-full"
+          required />
+      </div>
+      <div class="field">
+        <label for="country" class="block">Country</label>
+        <p-select id="country" name="country" required [options]="[
+            { name: 'New Zealand (NZ)', code: 'NZ' },
+            { name: 'Australia (AU)', code: 'AU' },
+            { name: 'United Kingdom (UK)', code: 'UK' }
+          ]" [(ngModel)]="employee.address.country" optionLabel="name" optionValue="code"
+          placeholder="Select a Country" class="w-full"></p-select>
+      </div>
+      <div class="field">
+        <label for="reportsTo" class="block">Reports To</label>
+        <p-autoComplete id="reportsTo" [(ngModel)]="selectedReportsTo" name="reportsTo"
+          [suggestions]="filteredEmployees" (completeMethod)="filterEmployees($event)" [dropdown]="true"
+          [forceSelection]="true" [field]="'fullName'" [optionLabel]="'fullName'" [optionValue]="'id'"
+          [placeholder]="'Select or search employee'" [minLength]="1" class="w-full"></p-autoComplete>
+      </div>
+      <div *ngIf="error" class="text-red-500 text-sm mt-1">
+        {{ error }}
+      </div>
+      <div class="flex justify-content-end mt-8">
+        <button pButton type="submit" label="Save" [loading]="loading" [disabled]="!employeeForm.form.valid || loading">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>

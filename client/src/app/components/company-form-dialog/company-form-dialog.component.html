@@ -1,0 +1,19 @@
+<p-dialog [header]="isEditMode ? 'Update Company' : 'New Company'" [modal]="true" [(visible)]="visible"
+  [closable]="true" [dismissableMask]="true" [style]="{ width: '400px' }" (onHide)="onHide()">
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+    <div class="p-fluid">
+      <div class="field">
+        <label for="companyName" class="block">Company Name</label>
+        <input id="companyName" type="text" pInputText [(ngModel)]="company.name" name="companyName" class="w-full"
+          required />
+      </div>
+      <div *ngIf="error" class="text-red-500 text-sm mt-1">
+        {{ error }}
+      </div>
+      <div class="flex justify-content-end mt-3">
+        <button pButton type="submit" label="Save" [loading]="loading" [disabled]="!employeeForm.form.valid || loading">
+        </button>
+      </div>
+    </div>
+  </form>
+</p-dialog>
