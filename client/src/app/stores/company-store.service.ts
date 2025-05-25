@@ -11,7 +11,9 @@ export class CompanyStore {
 
   public companies$: Observable<Company[]> = this.companiesSubject.asObservable();
 
-  constructor() { }
+  constructor() {
+    this.initializeWithSeedData();
+  }
 
   getAll(): Company[] {
     return this.companiesSubject.getValue();
@@ -88,5 +90,33 @@ export class CompanyStore {
 
   private generateTempId(): string {
     return `temp_${crypto.randomUUID()}`;
+  }
+
+  private initializeWithSeedData(): void {
+    const currentCompanies = this.companiesSubject.value;
+
+    if (currentCompanies.length === 0) {
+      console.log('Loading initial seed data for companies...');
+      const seedCompanies = this.getSeedCompanies();
+      this.companiesSubject.next(seedCompanies);
+      this.saveToStorage();
+    }
+  }
+
+  private getSeedCompanies(): Company[] {
+    return [
+      {
+        id: 'comp-1',
+        name: 'TechCorp Solutions',
+      },
+      {
+        id: 'comp-2',
+        name: 'InnovateLab Inc',
+      },
+      {
+        id: 'comp-3',
+        name: 'Digital Dynamics',
+      }
+    ];
   }
 }
