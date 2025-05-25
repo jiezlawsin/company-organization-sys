@@ -4,9 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy": "ng build --configuration production --base-href 'https://jiezlawsin.github.io/employee-organization-sys/' && npx angular-cli-ghpages --dir=dist/employee-organization-app",
-    "deploy:gh-pages": "npx angular-cli-ghpages --dir=dist/employee-organization-app"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

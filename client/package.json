@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy": "ng build --configuration production --base-href 'https://jiezlawsin.github.io/employee-organization-sys/' && npx angular-cli-ghpages --dir=dist/employee-organization-app",
+    "deploy:gh-pages": "npx angular-cli-ghpages --dir=dist/employee-organization-app"
   },
   "private": true,
   "dependencies": {
