@@ -5,6 +5,7 @@ import { TreeNode } from 'primeng/api';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { Company } from '../../models/company.model';
 
 @Component({
   selector: 'app-company-organization-chart',
@@ -18,6 +19,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
   styleUrl: './company-organization-chart.component.scss'
 })
 export class CompanyOrganizationChartComponent {
+  @Input() company: Company = { id: '', name: '' };
   @Input() employees: Employee[] = [];
 
   data: TreeNode[] = [];
@@ -38,16 +40,34 @@ export class CompanyOrganizationChartComponent {
       return;
     }
 
-    const employeeMap = new Map<string, Employee>();
-    this.employees.forEach(emp => employeeMap.set(emp.id, emp));
+    const rootEmployees = this.employees.filter(emp => !emp.reportsTo || emp.reportsTo === null || emp.reportsTo === '');
 
-    const rootEmployees = this.employees.filter(emp => !emp.reportsTo);
-    this.data = rootEmployees.map(rootEmp => this.buildTreeNode(rootEmp, employeeMap));
+    if (rootEmployees.length === 0) {
+      this.data = [{
+        label: this.company.name,
+        type: 'department',
+        styleClass: 'org-chart-root',
+        expanded: true,
+        children: this.employees.map(emp => this.buildTreeNode(emp))
+      }];
+      return;
+    }
+
+    if (rootEmployees.length === 1) {
+      this.data = [this.buildTreeNode(rootEmployees[0])];
+    } else {
+      this.data = [{
+        label: this.company.name,
+        type: 'department',
+        styleClass: 'org-chart-root',
+        expanded: true,
+        children: rootEmployees.map(rootEmp => this.buildTreeNode(rootEmp))
+      }];
+    }
   }
 
-  private buildTreeNode(employee: Employee, employeeMap: Map<string, Employee>): TreeNode {
+  private buildTreeNode(employee: Employee): TreeNode {
     const directReports = this.employees.filter(emp => emp.reportsTo === employee.id);
-
     const node: TreeNode = {
       label: `${employee.firstName} ${employee.lastName}`,
       type: 'person',
@@ -63,7 +83,7 @@ export class CompanyOrganizationChartComponent {
     };
 
     if (directReports.length > 0) {
-      node.children = directReports.map(report => this.buildTreeNode(report, employeeMap));
+      node.children = directReports.map(report => this.buildTreeNode(report));
     }
     return node;
   }

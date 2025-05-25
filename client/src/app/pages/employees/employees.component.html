@@ -36,7 +36,8 @@
       </p-tabpanel>
       <p-tabpanel value="1">
         <div class="overflow-auto">
-          <app-company-organization-chart [employees]="employees"></app-company-organization-chart>
+          <app-company-organization-chart *ngIf="company" [company]="company"
+            [employees]="employees"></app-company-organization-chart>
         </div>
       </p-tabpanel>
     </p-tabpanels>

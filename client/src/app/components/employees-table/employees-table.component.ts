@@ -61,5 +61,6 @@ export class EmployeesTableComponent {
         this.delete.emit(employee);
       },
     });
+
   }
 }
