@@ -92,11 +92,11 @@ export class EmployeeStore {
 
   private saveToStorage(): void {
     const employees = this.employeesSubject.getValue();
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(employees));
+    sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(employees));
   }
 
   private loadFromStorage(): Employee[] {
-    const storedEmployees = localStorage.getItem(this.STORAGE_KEY);
+    const storedEmployees = sessionStorage.getItem(this.STORAGE_KEY);
     return storedEmployees ? JSON.parse(storedEmployees) : [];
   }
 

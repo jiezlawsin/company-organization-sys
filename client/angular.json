@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "employee-organization-app": {
+    "company-organization-sys": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/employee-organization-app",
+            "outputPath": "dist/company-organization-sys",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "employee-organization-app:build:production"
+              "buildTarget": "company-organization-sys:build:production"
             },
             "development": {
-              "buildTarget": "employee-organization-app:build:development"
+              "buildTarget": "company-organization-sys:build:development"
             }
           },
           "defaultConfiguration": "development"

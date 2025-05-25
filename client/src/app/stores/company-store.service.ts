@@ -80,11 +80,11 @@ export class CompanyStore {
 
   private saveToStorage(): void {
     const companies = this.companiesSubject.getValue();
-    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(companies));
+    sessionStorage.setItem(this.STORAGE_KEY, JSON.stringify(companies));
   }
 
   private loadFromStorage(): Company[] {
-    const storedCompanies = localStorage.getItem(this.STORAGE_KEY);
+    const storedCompanies = sessionStorage.getItem(this.STORAGE_KEY);
     return storedCompanies ? JSON.parse(storedCompanies) : [];
   }
 

@@ -44,11 +44,11 @@ export class OfflineQueueService {
   }
 
   private getQueue(): OfflineQueueItem[] {
-    return JSON.parse(localStorage.getItem(this.queueKey) || '[]');
+    return JSON.parse(sessionStorage.getItem(this.queueKey) || '[]');
   }
 
   private saveQueue(queue: OfflineQueueItem[]) {
-    localStorage.setItem(this.queueKey, JSON.stringify(queue));
+    sessionStorage.setItem(this.queueKey, JSON.stringify(queue));
     this.queueSubject.next(queue);
   }
 

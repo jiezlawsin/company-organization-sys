@@ -31,7 +31,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npx ng build --configuration production --base-href "/employee-organization-app/"
+        run: npx ng build --configuration production --base-href "/company-organization-sys/"
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -39,7 +39,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: "./dist/employee-organization-app"
+          path: "./dist/company-organization-sys"
 
       - name: Deploy to GitHub Pages
         id: deployment
